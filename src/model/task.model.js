@@ -27,10 +27,11 @@ const TaskSchema = new Schema({
   timestamps: true
 })
 
-TaskSchema.pre(/^find/, (next)=>{
-  if (this instanceof Query) {
+TaskSchema.pre(/^find/, function (next){
+if (this instanceof Query) {
     this.where({ isDeleted: { $ne: true } }); 
-  }
+  }  
+  next()
 })
 
 export default model('Task', TaskSchema)

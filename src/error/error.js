@@ -22,3 +22,36 @@ export class BadUserRequestError extends Error {
 
 
 // new NotFoundError("The user does not exist")
+
+
+// class Human {
+//   constructor(name, age,){
+//     this.name = name;
+//     this.age = age
+//   }
+// }
+
+// class Female extends Human {
+//   constructor(name, age,){
+//     super(name, age)
+//     this.sex = "Female"
+//   }
+// }
+
+
+
+// class Male extends Human {
+//   constructor(name, age,){
+//     super(name, age)
+//     this.sex = "Male"
+//   }
+// }
+
+
+
+
+//  new Male("Adam", 45) = {
+//   name: "Adam",
+//   age: 45,
+//   sex: "male"
+// }

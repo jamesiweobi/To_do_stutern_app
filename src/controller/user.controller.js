@@ -29,9 +29,7 @@ export default class UserController {
     const { id } = req.query
     const {error} = mongoIdValidator.validate(req.query)
     if(error) throw new BadUserRequestError("Please pass in a valid mongoId")
-
     // if(!id) throw new BadUserRequestError("Please pass in a valid userId in the request query")
-
     const user = await User.findById(id)
     if (!user) throw new NotFoundError('User not found')
 
