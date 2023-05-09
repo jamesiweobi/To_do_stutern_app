@@ -8,6 +8,7 @@ const router = new express.Router()
 // User Creation Route
 router.post("/create", tryCatchHandler( UserController.createUser) )
 router.get("/", tryCatchHandler( UserController.findUser) )
+router.post("/login", tryCatchHandler( UserController.loginUSer) )
 
 
 //Exporting the User Router

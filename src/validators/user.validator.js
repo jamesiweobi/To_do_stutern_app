@@ -17,3 +17,9 @@ export const createUserValidator = Joi.object({
 }).strict()
 
 
+export const loginUserValidator = Joi.object({
+  username:Joi.string().optional(),
+  email:Joi.string().optional(),
+  password: Joi.string().required()
+}).strict()
+
