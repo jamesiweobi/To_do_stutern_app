@@ -1,5 +1,6 @@
-import { Schema, model, Types, Query} from "mongoose"
-
+// import { Schema, model, Types, Query} from "mongoose"
+import mongoose from "mongoose";
+const { Schema, model, Types, Query } = mongoose;
 
 const TaskSchema = new Schema({
   creator: {

@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGODB_CONNECTION_URL).then(()=> console.log("Data
 
 
 // Port configuration
-const port = Number(process.env.PORT) || 3000;
+const port = Number(process.env.PORT) || 4000;
 
 
 // Middlewares
@@ -38,6 +38,7 @@ app.use((err, req, res, next)=>{
     status: "Failed",
   })
 })
+
 
 // Setting up the express server
 app.listen(port, ()=>{

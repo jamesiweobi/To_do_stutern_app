@@ -1,8 +1,9 @@
-import {Router} from "express"
-import TaskController from "../controller/task.controller.js"
+import express from "express";
+const { Router } = express;
+import TaskController from "../controller/task.controller.js";
 
-const router = Router()
+const router = Router();
 
-router.post("/create", TaskController.createTask)
+router.post("/create", TaskController.createTask);
 
-export {router}
+export { router };
