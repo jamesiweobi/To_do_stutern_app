@@ -3,7 +3,7 @@ import User from "../model/user.model.js"
 import { createUserValidator, loginUserValidator } from "../validators/user.validator.js"
 import { mongoIdValidator } from "../validators/mongoId.validator.js"
 import { BadUserRequestError, NotFoundError } from "../error/error.js"
-import { Types } from "mongoose"
+import {generateToken} from "../utils/jwt.utils.js"
 import bcrypt from "bcrypt"
 
 dotenv.config()
@@ -33,7 +33,8 @@ export default class UserController {
       message: "User created successfully",
       status: "Success",
       data: {
-        user: newUser
+        user: newUser,
+        access_token: generateToken(newUser)
       }
     })
   }
@@ -63,7 +64,7 @@ export default class UserController {
   // $and
 
 
-  static async loginUSer(req, res) {
+  static async loginUser(req, res) {
     const { error } = loginUserValidator.validate(req.body)
     if (error) throw error
     if (!req.body?.username && !req.body?.email) throw new BadUserRequestError("Please provide a username and email before you can login.")
@@ -76,13 +77,15 @@ export default class UserController {
         }
       ]
     })
+    if(!user) throw new BadUserRequestError("username, email does not exist")
     const hash = bcrypt.compareSync(req.body.password, user.password)
     if(!hash) throw new BadUserRequestError("username, email or password is wrong!")
     res.status(200).json({
       message: "User found successfully",
       status: "Success",
       data: {
-        user
+        user,
+        access_token: generateToken(user)
       }
     })
   }

@@ -8,11 +8,7 @@ export default class TaskController {
   static async createTask(req, res,){
       const {error } = createTaskValidator.validate(req.body)
       if(error) throw error
-
-      const isUserAvailable = await User.findById(req.body.creator)
-      if(!isUserAvailable) throw new BadUserRequestError(`User with this id: ${req.body.creator} does not exist`)
-
-      const newTask = await Task.create(req.body)
+      const newTask = await Task.create({...req.body, creator: req.user._id, creatorId: req.user._id })
       res.status(201).json({
       message: "Task created successfully",
       status: "Success",
@@ -85,7 +81,7 @@ export default class TaskController {
 
 
   static async findAll(req, res) {
-    const { id } = req.query
+const id = req.user._id
     const { error } = mongoIdValidator.validate(req.query)
     if( error ) throw new BadUserRequestError("Please pass in a valid mongoId")
 

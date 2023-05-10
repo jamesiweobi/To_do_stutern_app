@@ -24,7 +24,6 @@ mongoose.connect(process.env.MONGODB_CONNECTION_URL).then(()=> console.log("Data
 // Port configuration
 const port = Number(process.env.PORT) || 3000;
 
-
 // Middlewares
 app.use(morgan('tiny'))
 app.use(express.json())

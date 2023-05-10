@@ -1,17 +1,18 @@
 import {Router} from "express"
 import TaskController from "../controller/task.controller.js"
 import { tryCatchHandler} from "../utils/tryCatch.handler.js"
+import {userAuthMiddleWare} from "../middlewares/auth.middleware.js"
 
 const router = Router()
 
-router.post("/create",  tryCatchHandler( TaskController.createTask))
+router.post("/create", userAuthMiddleWare, tryCatchHandler( TaskController.createTask))
 
-router.put("/update", tryCatchHandler( TaskController.updateOneTask))
+router.put("/update", userAuthMiddleWare, tryCatchHandler( TaskController.updateOneTask))
 
-router.get("/one", tryCatchHandler( TaskController.getOneTask))
+router.get("/one", userAuthMiddleWare, tryCatchHandler( TaskController.getOneTask))
 
-router.get("/all_task", tryCatchHandler( TaskController.findAll))
+router.get("/all_task", userAuthMiddleWare, tryCatchHandler( TaskController.findAll))
 
-router.delete("/delete", tryCatchHandler( TaskController.deleteOneTask))
+router.delete("/delete",  userAuthMiddleWare, tryCatchHandler( TaskController.deleteOneTask))
 
 export {router}
