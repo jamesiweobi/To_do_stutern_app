@@ -1,12 +1,11 @@
-import dotenv from 'dotenv'
 import User from "../model/user.model.js"
 import { createUserValidator, loginUserValidator } from "../validators/user.validator.js"
 import { mongoIdValidator } from "../validators/mongoId.validator.js"
 import { BadUserRequestError, NotFoundError } from "../error/error.js"
 import {generateToken} from "../utils/jwt.utils.js"
 import bcrypt from "bcrypt"
+import {config} from "../config/index.js"
 
-dotenv.config()
 
 export default class UserController {
 
@@ -18,7 +17,7 @@ export default class UserController {
     if (emailExists.length > 0) throw new BadUserRequestError("An account with this email already exists.")
     const usernameExists = await User.find({ username: req.body.username })
     if (usernameExists.length > 0) throw new BadUserRequestError("An account with this username already exists.")
-    const saltRounds = Number(process.env.BCRYPT_SALT_ROUND)
+    const saltRounds = config.bycrypt_salt_round
     const hashedPassword = bcrypt.hashSync(req.body.password, saltRounds);
     const user = {
       firstName: req.body.firstName,

@@ -1,6 +1,5 @@
 import jwt, { verify } from "jsonwebtoken"
-import dotenv from "dotenv"
-dotenv.config()
+import {config} from "../config/index.js"
 
 export function generateToken(user){
   const payload = {
@@ -8,10 +7,10 @@ export function generateToken(user){
     email: user.email,
     username: user.username
   }
-  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 });
+  const token = jwt.sign(payload, config.jwt_secret_key, { expiresIn: 60 * 60 * 24 });
   return token 
 }
 
 export function verifyToken(token){
- return jwt,verify(token,  process.env.JWT_SECRET)
+ return jwt,verify(token, config.jwt_secret_key)
 }
